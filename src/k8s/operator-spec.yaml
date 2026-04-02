@@ -1,0 +1,13 @@
+apiVersion: autoscaling.carbonscale.io/v1
+kind: CarbonAwareScaler
+metadata:
+  name: gpu-training-scaler
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: llama3-training-job
+  region: "US-East-1"
+  maxReplicas: 20
+  minReplicas: 1
+  carbonThreshold: 350 # Only scale up if below 350 gCO2eq/kWh
